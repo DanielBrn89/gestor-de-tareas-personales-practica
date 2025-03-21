@@ -1,0 +1,39 @@
+﻿using gestor_de_tareas_personales_practica.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace gestor_de_tareas_personales_practica.Services
+{
+    public interface IAuthService
+    {
+        Task<User> Authenticate(string username, string password);
+    }
+
+    public class AuthService : IAuthService
+    {
+        private readonly ApplicationDbContext _context;
+
+        public AuthService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<User> Authenticate(string username, string password)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == username);
+
+            if (user != null && VerifyPasswordHash(password, user.PasswordHash))
+            {
+                return user;
+            }
+
+            return null;
+        }
+
+        private bool VerifyPasswordHash(string password, string storedHash)
+        {
+            // Implementa la lógica para verificar el hash de la contraseña
+            // Por ejemplo, usando BCrypt o similar
+            return BCrypt.Net.BCrypt.Verify(password, storedHash);
+        }
+    }
+}
