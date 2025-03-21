@@ -35,5 +35,17 @@ namespace gestor_de_tareas_personales_practica.Services
             // Por ejemplo, usando BCrypt o similar
             return BCrypt.Net.BCrypt.Verify(password, storedHash);
         }
+        public static class PasswordHasher
+        {
+            public static string HashPassword(string password)
+            {
+                return BCrypt.Net.BCrypt.HashPassword(password);
+            }
+
+            public static bool VerifyPassword(string password, string hashedPassword)
+            {
+                return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+            }
+        }
     }
 }

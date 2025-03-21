@@ -1,19 +1,14 @@
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace gestor_de_tareas_personales_practica.Pages;
-
-public class IndexModel : PageModel
+namespace gestor_de_tareas_personales_practica.Pages
 {
-    private readonly ILogger<IndexModel> _logger;
-
-    public IndexModel(ILogger<IndexModel> logger)
+    [Authorize] // Solo usuarios autenticados pueden acceder a esta página
+    public class IndexModel : PageModel
     {
-        _logger = logger;
-    }
-
-    public void OnGet()
-    {
-
+        public void OnGet()
+        {
+            // Aquí puedes agregar lógica adicional si es necesario
+        }
     }
 }

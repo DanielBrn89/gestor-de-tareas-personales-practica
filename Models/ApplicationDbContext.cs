@@ -14,7 +14,16 @@ namespace gestor_de_tareas_personales_practica.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>().ToTable("users"); // Mapea la tabla users
+
+            // Configurar la tabla y la clave primaria
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("Users"); // Nombre de la tabla en la base de datos
+                entity.HasKey(u => u.Id_User); // Clave primaria
+                entity.Property(u => u.Id_User).ValueGeneratedOnAdd(); // Autoincremental
+                entity.Property(u => u.Username).HasMaxLength(100).IsRequired(); // Longitud y requerido
+                entity.Property(u => u.PasswordHash).HasMaxLength(256).IsRequired(); // Longitud y requerido
+            });
         }
     }
 }
