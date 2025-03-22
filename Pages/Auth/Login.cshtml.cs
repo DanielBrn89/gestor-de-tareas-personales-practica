@@ -57,15 +57,15 @@ namespace gestor_de_tareas_personales_practica.Pages.Auth
             // Redirigir al usuario a la pantalla principal
             return RedirectToPage("/Index");
         }
-    }
 
-    public class LoginInputModel
-    {
-        [Required]
-        public string Username { get; set; }
+        public class LoginInputModel
+        {
+            [Required]
+            public string Username { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
+            [Required]
+            [DataType(DataType.Password)]
+            public string Password { get; set; }
+        }
     }
 }

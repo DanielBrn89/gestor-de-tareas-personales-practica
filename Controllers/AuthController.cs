@@ -69,6 +69,38 @@ namespace gestor_de_tareas_personales_practica.Controllers
 
             return Ok(new { user.Id_User, user.Username });
         }
+        public async Task<User> Authenticate(string username, string password)
+        {
+            Console.WriteLine($"Buscando usuario: {username}");
+
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Username == username);
+
+            if (user == null)
+            {
+                Console.WriteLine("Usuario no encontrado");
+                return null;
+            }
+
+            Console.WriteLine($"Usuario encontrado: {user.Username}");
+            Console.WriteLine($"Verificando contraseña...");
+
+            bool isPasswordValid = VerifyPasswordHash(password, user.PasswordHash);
+
+            if (!isPasswordValid)
+            {
+                Console.WriteLine("Contraseña incorrecta");
+                return null;
+            }
+
+            Console.WriteLine("Usuario autenticado correctamente");
+            return user;
+        }
+
+        private bool VerifyPasswordHash(string password, string passwordHash)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
